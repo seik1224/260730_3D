@@ -1,4 +1,4 @@
-import { Cone, Sphere } from '@react-three/drei'
+import { Box, Cone, Cylinder, Sphere } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
 import React from 'react'
 
@@ -54,6 +54,14 @@ const Three01 = () => {
                     <Cone position={[2,0,0]} args={[1,2,32]}>
                         <meshStandardMaterial color='green' />
                     </Cone>
+
+                    <Box position={[0,0,0]} args={[1,1,1]}>
+                        <meshStandardMaterial color='orange' />
+                    </Box>
+
+                    <Cylinder position={[0,0,-2]} args={[1,1,2,32]}>
+                        <meshStandardMaterial color='blue' />
+                    </Cylinder>
 
                 </Canvas>
             </div>
