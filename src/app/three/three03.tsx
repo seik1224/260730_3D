@@ -95,6 +95,28 @@ const ThreeCamera = () => {
     return null;
 }
 
+/*
+    [ 카메라 이동 ]
+*/
+
+const SmoothCamera = () => {
+    const { camera } = useThree();
+    const targetPosition = useRef(new THREE.Vector3(2,2,2));
+
+    useFrame(()=>{
+        /*
+            [ lerp ]
+            목표 위치로 부드럽게 이동하는 메서드
+            lerp(목표위치, 이동속도)
+        */
+        camera.position.lerp(targetPosition.current, 0.05);
+
+        camera.lookAt(0,0,0)
+    })
+
+    return null;
+}
+
 const Three03 = () => {
     return (
         <>
@@ -104,7 +126,8 @@ const Three03 = () => {
 
                     {/* <Camera /> */}
                     {/* <PivotCamera /> */}
-                    <ThreeCamera />
+                    {/* <ThreeCamera /> */}
+                    <SmoothCamera />
 
                     <Sphere position={[0,0,0]} args={[1,32,32]}>
                         <meshStandardMaterial color='red' />
