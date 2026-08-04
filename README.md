@@ -14,4 +14,4 @@ Drei : Fiber를 기반으로 한 유틸리티 모음 라이브러리
 glb파일을 jsx코드로 변환해주는 라이브러리
 
 사용법 : npx gltfjsx glb파일위치 -o 출력위치
-npx gltfhsx public/Pikachu.gln -o src/app/three/pikachu.tsx
+npx gltfjsx public/Pikachu.glb -o src/app/three/pikachu.tsx
