@@ -1,6 +1,6 @@
 import { PerspectiveCamera, Sphere } from '@react-three/drei'
-import { Canvas, useFrame } from '@react-three/fiber'
-import React, { useRef } from 'react'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
+import React, { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 
 /*
@@ -68,6 +68,33 @@ const PivotCamera = () => {
     )
 }
 
+/*
+    [ useThree ]
+    - 카메라에 접근하는 두번째 방법
+    - perspectiveCamera를 만들지않고 현재 활성화된 카메라를 참조
+    (기본 카메라에 직접 접근)
+    - 주로 카메라 조작에 사용
+*/
+const ThreeCamera = () => {
+    const { camera, set } = useThree();
+
+    useEffect(()=>{
+        // 카메라 초기설정
+        camera.position.set(0,2,5);
+        camera.rotation.x = (-Math.PI/180) * 10;
+        camera.updateProjectionMatrix();
+
+        // 기본 카메라로 설정
+        set({camera});
+    }, [camera, set]);
+
+    useFrame(()=> {
+        camera.rotation.y += 0.1
+    })
+
+    return null;
+}
+
 const Three03 = () => {
     return (
         <>
@@ -77,6 +104,7 @@ const Three03 = () => {
 
                     {/* <Camera /> */}
                     {/* <PivotCamera /> */}
+                    <ThreeCamera />
 
                     <Sphere position={[0,0,0]} args={[1,32,32]}>
                         <meshStandardMaterial color='red' />
