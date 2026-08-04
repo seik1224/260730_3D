@@ -38,6 +38,36 @@ const Camera = () => {
     )
 }
 
+/*
+    [ pivot ]
+    pivot은 객체가 회전하는 기준점 역할 (중심점은 기본적으로 0,0,0)
+    카메라가 고정된 채로 pivot(group)이 회전
+*/
+const PivotCamera = () => {
+    const pivotRef = useRef<THREE.Group>(null);
+    const cameraRef = useRef(null);
+
+    useFrame(()=>{
+        if(pivotRef.current){
+            pivotRef.current.rotation.z += 0.1;
+        }
+    })
+
+    return (
+        // 카메라가 group의 자식이기 때문에 group을 회전 시키면 카메라도 회전
+        <group ref={pivotRef} position={[0,2,0]}>
+            <PerspectiveCamera
+                ref={cameraRef}
+                makeDefault
+                position={[0,0,5]}
+                fov={75}
+                near={0.1}
+                far={1000}
+            />
+        </group>
+    )
+}
+
 const Three03 = () => {
     return (
         <>
@@ -45,7 +75,8 @@ const Three03 = () => {
                 <Canvas>
                     <ambientLight intensity={5} />
 
-                    <Camera />
+                    {/* <Camera /> */}
+                    {/* <PivotCamera /> */}
 
                     <Sphere position={[0,0,0]} args={[1,32,32]}>
                         <meshStandardMaterial color='red' />
